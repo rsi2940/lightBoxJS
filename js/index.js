@@ -7,7 +7,7 @@ function filter() {
 
   //console.log(img[0].dataset.caption);
 
-  // Loop in image list, and hide non-matching
+  // Looping images / hide non-matching caption images
   for (let i = 0; i < img.length; i++) {
     const caption = img[i].dataset.caption;
     if (caption.toUpperCase().indexOf(filter) > -1) {
