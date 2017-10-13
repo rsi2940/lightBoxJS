@@ -12,10 +12,11 @@
 <body>
 
     <div id="search">
-        <input type="text" id="searchBox" placeholder="Input text to search images" autocomplete="ON">
+        <input type="text" id="searchBox" placeholder="Input text to search images" autocomplete="ON" onkeyup="filter()">
     </div>
     <div id="thumbnails">
-        <img src="photos/thumbnails/01.jpg" alt="Countryside straw fields" title="Hay Bales" data-caption="I love hay bales. Took this snap on a drive through the countryside past some straw fields.">
+        <img src="photos/thumbnails/01.jpg" alt="Countryside straw fields" title="Hay Bales" data-caption="I love hay bales. Took this snap on a drive through the countryside past some straw fields."
+            onclick="viewLightBox()">
         <img src="photos/thumbnails/02.jpg" alt="lake below the snow mountain" title="Lake" data-caption="The lake was so calm today. We had a great view of the snow on the mountains from here.">
         <img src="photos/thumbnails/03.jpg" alt="revealing the canyon" title="Canyon" data-caption="I hiked to the top of the mountain and got this picture of the canyon and trees below.">
         <img src="photos/thumbnails/04.jpg" alt="beauty of iceberg" title="Iceberg" data-caption="It was amazing to see an iceberg up close, it was so cold but didn’t snow today.">
@@ -29,8 +30,9 @@
         <img src="photos/thumbnails/12.jpg" alt="beautiful snow mountains" title="Bluebells" data-caption="I walked through this meadow of bluebells and got a good view of the snow on the mountain before the fog came in.">
     </div>
     <footer>
-        <p>A simple LightBox implementation.</p>
+        <p>A simple LightBox implementation with RealTimeSearch.</p>
     </footer>
+    <script src="js/index.js"></script>
 </body>
 
 </html>

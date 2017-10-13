@@ -1,8 +1,27 @@
-model = [
-  {
-    imgPath: 'photos/01.jpg',
-    title: 'Hay Bales',
-    caption:
-      'I love hay bales. Took this snap on a drive through the countryside past some straw fields.'
+function filter() {
+  // Declare variables for filter purpose
+  const input = document.getElementById("searchBox");
+  const filter = input.value.toUpperCase();
+  const thumbnails = document.getElementById("thumbnails");
+  const img = thumbnails.getElementsByTagName("img");
+
+  //console.log(img[0].dataset.caption);
+
+  // Loop in image list, and hide non-matching
+  for (let i = 0; i < img.length; i++) {
+    const caption = img[i].dataset.caption;
+    if (caption.toUpperCase().indexOf(filter) > -1) {
+      //firstString.indexOf(secondString)
+      //implies to if there is no match
+      //it returns -1
+      img[i].style.display = "";
+    } else {
+      img[i].style.display = "none";
+    }
   }
-];
+}
+
+//console.log("hello");
+function viewLightBox() {
+  console.log("welcome to lightbox func");
+}
