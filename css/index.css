@@ -44,10 +44,13 @@ body {
   padding-bottom: 0.25em;
   margin: 0 auto;
   grid-template-columns: repeat(4, 1fr);
-  grid-row-gap: 2em;
+  grid-row-gap: 1em;
+  grid-column-gap: 1em;
   -ms-grid-row-align: center;
+  -ms-grid-column-align: center;
 }
 #thumbnails img {
+  justify-self: center;
   box-shadow: 4px 4px 4px gray;
 }
 footer {
@@ -70,7 +73,16 @@ footer {
 }
 @media (max-width: 33em) {
   #thumbnails {
-    display: block;
-    margin: 0 auto;
+    grid-template-columns: 1fr;
+    align-content: center;
+    overflow: hidden;
+  }
+  #thumbnails img {
+    width: 150px;
+  }
+
+  footer {
+    font-size: 0.75em;
+    padding: 0.5em 0.5em 0 0;
   }
 }
