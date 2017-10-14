@@ -21,7 +21,12 @@ function filter() {
   }
 }
 
+function hideLightBox() {
+  document.getElementById("lightBox").style.display = "none";
+}
+
 //console.log("hello");
-function viewLightBox() {
-  console.log("welcome to lightbox func");
+function viewLightBox(source, alt) {
+  //console.log("welcome to lightbox func");
+  console.log(this.dataset.caption);
 }

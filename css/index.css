@@ -7,6 +7,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: rgb(200, 200, 200);
 }
+
+#lightBox {
+  position: fixed;
+  /* display: none; */
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.x {
+  font-size: 3em;
+  position: fixed;
+  top: 0;
+  right: 0;
+  color: #fff;
+}
+
 #search {
   position: fixed;
   height: 2.75em;
@@ -54,6 +71,6 @@ footer {
 @media (max-width: 33em) {
   #thumbnails {
     display: block;
-    margin: 0 calc(100vw/4);
+    margin: 0 auto;
   }
 }
