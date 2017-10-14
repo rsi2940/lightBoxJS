@@ -39,7 +39,7 @@ body {
 }
 #thumbnails {
   display: grid;
-  width: 80vw;
+  width: 90vw;
   padding-top: 3em;
   padding-bottom: 0.25em;
   margin: 0 auto;
