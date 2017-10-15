@@ -7,7 +7,7 @@ function filter() {
 
   //console.log(img[0].dataset.caption);
 
-  // Looping images / hide non-matching caption images
+  // Loop to hide non-matching photo & caption
   for (let i = 0; i < img.length; i++) {
     const caption = img[i].dataset.caption;
     if (caption.toUpperCase().indexOf(filter) > -1) {
@@ -27,7 +27,7 @@ function hideLightBox() {
   document.getElementById("lightBox").style.display = "none";
 }
 
-//console.log("hello");
+//view full resolution photo
 function viewLightBox(obj) {
   //console.log("welcome to lightbox func");
   // console.log(obj.dataset.caption);
@@ -39,6 +39,7 @@ function viewLightBox(obj) {
   document.getElementsByClassName("lbImage")[0].src = obj.dataset.src;
 }
 
+//add caption to all photoes on the gallery
 function addTitle(value) {
   // console.log(value.nextSibling);
   value.nextElementSibling.innerText = value.title;
