@@ -15,8 +15,10 @@ function filter() {
       //implies to if there is no match
       //it returns -1
       img[i].style.display = "";
+      img[i].nextElementSibling.style.display = "";
     } else {
       img[i].style.display = "none";
+      img[i].nextElementSibling.style.display = "none";
     }
   }
 }
@@ -26,7 +28,18 @@ function hideLightBox() {
 }
 
 //console.log("hello");
-function viewLightBox(source, alt) {
+function viewLightBox(obj) {
   //console.log("welcome to lightbox func");
-  console.log(this.dataset.caption);
+  // console.log(obj.dataset.caption);
+  // console.log(obj);
+  const lightBox = document.getElementById("lightBox");
+  lightBox.style.display = "flex";
+  console.log(obj.dataset.src);
+  console.log(document.getElementsByClassName("lbImage")[0].src);
+  document.getElementsByClassName("lbImage")[0].src = obj.dataset.src;
+}
+
+function addTitle(value) {
+  // console.log(value.nextSibling);
+  value.nextElementSibling.innerText = value.title;
 }
