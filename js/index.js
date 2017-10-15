@@ -1,3 +1,64 @@
+//full resolution image sources
+const imgSrc = [
+  "photos/01.jpg",
+  "photos/02.jpg",
+  "photos/03.jpg",
+  "photos/04.jpg",
+  "photos/05.jpg",
+  "photos/06.jpg",
+  "photos/07.jpg",
+  "photos/08.jpg",
+  "photos/09.jpg",
+  "photos/10.jpg",
+  "photos/11.jpg",
+  "photos/12.jpg"
+];
+// image source variable declaration for future use to slide the image
+let currentImgSrc = "";
+
+//function to change image in lightbox
+function changeImg(changeSrc) {
+  document.getElementsByClassName("lbImage")[0].src = changeSrc;
+}
+
+//add function to next and previous arrow
+
+const prev = function() {
+  // console.log(currentImgSrc.toString());
+  for (let i = 0; i < imgSrc.length; i++) {
+    if (currentImgSrc.toString().indexOf(imgSrc[i]) > -1) {
+      if (i === 0) {
+        changeImg(imgSrc[imgSrc.length - 1]);
+        console.log(imgSrc[imgSrc.length - 1]);
+        currentImgSrc = imgSrc[imgSrc.length - 1];
+        break;
+      }
+      changeImg(imgSrc[i - 1]);
+      console.log(imgSrc[i - 1]);
+      currentImgSrc = imgSrc[i - 1];
+      break;
+    }
+  }
+};
+
+const next = function() {
+  // console.log(currentImgSrc.toString());
+  for (let i = 0; i < imgSrc.length; i++) {
+    if (currentImgSrc.toString().indexOf(imgSrc[i]) > -1) {
+      if (i === imgSrc.length - 1) {
+        changeImg(imgSrc[0]);
+        console.log(imgSrc[0]);
+        currentImgSrc = imgSrc[0];
+        break;
+      }
+      changeImg(imgSrc[i + 1]);
+      console.log(imgSrc[i + 1]);
+      currentImgSrc = imgSrc[i + 1];
+      break;
+    }
+  }
+};
+
 function filter() {
   // Declare variables for filter purpose
   const input = document.getElementById("searchBox");
@@ -31,16 +92,26 @@ function hideLightBox() {
 function viewLightBox(obj) {
   //console.log("welcome to lightbox func");
   // console.log(obj.dataset.caption);
-  // console.log(obj);
+  //console.log(obj);
+
   const lightBox = document.getElementById("lightBox");
   lightBox.style.display = "flex";
-  console.log(obj.dataset.src);
-  console.log(document.getElementsByClassName("lbImage")[0].src);
-  document.getElementsByClassName("lbImage")[0].src = obj.dataset.src;
+  currentImgSrc = obj.dataset.src;
+  //nouncoment
+  // console.log(obj.dataset.src);
+  // console.log(document.getElementsByClassName("lbImage")[0].src);
+
+  // add image to lightbox
+  changeImg(obj.dataset.src);
+  document
+    .getElementsByClassName("previous")[0]
+    .addEventListener("click", prev);
+  document.getElementsByClassName("next")[0].addEventListener("click", next);
 }
 
 //add caption to all photoes on the gallery
 function addTitle(value) {
   // console.log(value.nextSibling);
   value.nextElementSibling.innerText = value.title;
+  console.log(value);
 }
