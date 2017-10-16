@@ -13,8 +13,15 @@ const imgSrc = [
   "photos/11.jpg",
   "photos/12.jpg"
 ];
+// new rendered array
+let imgArrayShown = [];
+let imgArrayHidden = [];
 // image source variable declaration for future use to slide the image
 let currentImgSrc = "";
+
+// counter for total number of invisible photoes
+let countInvisible = 0;
+let countVisible = imgSrc.length;
 
 //function to change image in lightbox
 function changeImg(changeSrc) {
@@ -67,6 +74,9 @@ function filter() {
   const img = thumbnails.getElementsByTagName("img");
 
   //console.log(img[0].dataset.caption);
+  countInvisible = 0;
+  imgArrayShown = [];
+  imgArrayHidden = [];
 
   // Loop to hide non-matching photo & caption
   for (let i = 0; i < img.length; i++) {
@@ -77,9 +87,19 @@ function filter() {
       //it returns -1
       img[i].style.display = "";
       img[i].nextElementSibling.style.display = "";
+      countVisible = imgSrc.length - countInvisible;
+      imgArrayShown.push(img[i].dataset.src);
+      console.log("in Show " + imgArrayShown[i]);
+      // console.log("in show " + countVisible);
     } else {
       img[i].style.display = "none";
       img[i].nextElementSibling.style.display = "none";
+      countInvisible++;
+      imgArrayHidden.push(img[i].dataset.src);
+      countVisible = imgSrc.length - countInvisible;
+      console.log("in hide " + imgArrayHidden[i]);
+      //console.log("in hide " + countVisible);
+      // console.log("i in hide" + i);
     }
   }
 }
@@ -113,5 +133,5 @@ function viewLightBox(obj) {
 function addTitle(value) {
   // console.log(value.nextSibling);
   value.nextElementSibling.innerText = value.title;
-  console.log(value);
+  //console.log(value);
 }
