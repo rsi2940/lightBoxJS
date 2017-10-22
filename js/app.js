@@ -296,7 +296,6 @@ const controller = {
   },
   addKeyboardArrowListener() {
     document.addEventListener("keydown", e => {
-      console.log(e.keyCode);
       if (e.keyCode === 39) {
         navigation.next();
       }
