@@ -4,7 +4,6 @@
 const model = {
   declaration() {
     this.imgArrayShown = [];
-    this.imgArrayHidden = [];
   },
 
   lightBoxVariable() {
@@ -115,17 +114,14 @@ const model = {
 const searchBox = {
   init() {
     this.searchBox = document.getElementById("searchBox");
-    //this.searchBox = "";
   }
 };
 const thumbnailsView = {
   clearThumbnails() {
-    //console.log("clearing...");
     const parent = document.getElementById("thumbnails");
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
-    //console.log("cleared!!");
   },
 
   addThumbnails(src, alt, title, caption, lbSrc) {
@@ -172,9 +168,7 @@ const navigation = {
           model.currentImgSrc =
             model.imgArrayShown[model.imgArrayShown.length - 1].imgSrc;
           lightBoxView.changeImg(model.currentImgSrc);
-          // console.log(
-          //   model.imgArrayShown[model.imgArrayShown.length - 1].imgSrc
-          // );
+
           model.caption =
             model.imgArrayShown[model.imgArrayShown.length - 1].imgCaption;
           lightBoxView.lightBoxCaption(model.caption);
@@ -182,7 +176,6 @@ const navigation = {
           break;
         }
 
-        //console.log(model.imgArrayShown[i - 1].imgSrc);
         model.currentImgSrc = model.imgArrayShown[i - 1].imgSrc;
         lightBoxView.changeImg(model.currentImgSrc);
 
@@ -219,16 +212,10 @@ const controller = {
   //filter function
   filter() {
     // Declare variables for filter purpose
-    //console.log("infilter");
-
     const input = searchBox.searchBox;
     const filter = input.value.toUpperCase();
     const images = model.imgObj;
-    // console.log(filter);
 
-    //console.log(img[0].dataset.caption);
-
-    //console.log(model.imgArrayHidden[0]);
     //reset model array data
     model.declaration();
     // Loop to hide non-matching photo & caption
@@ -236,15 +223,13 @@ const controller = {
       const caption = images[i].imgCaption;
       if (caption.toUpperCase().indexOf(filter) > -1) {
         model.imgArrayShown.push(images[i]);
-
-        // console.log(images[i]);
       } else {
         model.imgArrayHidden.push(images[i]);
       }
     }
-    // console.log(imgArrayHidden);
-    //console.log(model.imgArrayShown);
+    //clear thumbnails before populating new set of photos
     thumbnailsView.clearThumbnails();
+    //add new sorted thumbnails to display
     for (i = 0; i < model.imgArrayShown.length; i++) {
       thumbnailsView.addThumbnails(
         model.imgArrayShown[i].imgSrcTh,
@@ -273,19 +258,21 @@ const controller = {
     //add event listener to input
     searchBox.searchBox.addEventListener("keyup", controller.filter);
   },
-
+  //hide lightbox
   hideLightBox() {
     document.getElementById("lightBox").style.display = "none";
   },
-
+  //show next and prev labels
   showNextPrev() {
     document.getElementsByClassName("previous")[0].style.display = "";
     document.getElementsByClassName("next")[0].style.display = "";
   },
+  //hide next and prev labels
   hideNextPrev() {
     document.getElementsByClassName("previous")[0].style.display = "none";
     document.getElementsByClassName("next")[0].style.display = "none";
   },
+  //add click listener to prev and next labels
   addClickListener() {
     document
       .getElementsByClassName("previous")[0]
@@ -294,6 +281,7 @@ const controller = {
       .getElementsByClassName("next")[0]
       .addEventListener("click", navigation.next);
   },
+  //add keyboard listener to arrow and escape function
   addKeyboardArrowListener() {
     document.addEventListener("keydown", e => {
       if (e.keyCode === 39) {
@@ -307,7 +295,7 @@ const controller = {
       }
     });
   },
-
+  //lightBox to display photo and caption and add event listeners
   lightBox(obj) {
     const lightBox = document.getElementById("lightBox");
     lightBox.style.display = "flex";
@@ -333,13 +321,11 @@ const controller = {
       controller.addClickListener();
     }
   },
-
+  //add event listeners to each images displayed
   listenThumbnails() {
     const images = thumbnailsView.thumbnails.getElementsByClassName("images");
-
     for (let i = 0; i < images.length; i++) {
       images[i].firstChild.addEventListener("click", controller.lightBox);
-      // console.log(images[i]);
     }
   }
 };
