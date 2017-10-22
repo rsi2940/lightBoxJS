@@ -223,8 +223,6 @@ const controller = {
       const caption = images[i].imgCaption;
       if (caption.toUpperCase().indexOf(filter) > -1) {
         model.imgArrayShown.push(images[i]);
-      } else {
-        model.imgArrayHidden.push(images[i]);
       }
     }
     //clear thumbnails before populating new set of photos
