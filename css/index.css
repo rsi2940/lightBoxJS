@@ -16,7 +16,6 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
   flex-direction: column;
-  /* outline: 2px solid blue; */
 }
 .lightBoxImage {
   width: 80%;
@@ -27,15 +26,11 @@ body {
   align-items: center;
   justify-content: space-around;
   padding-top: 3em;
-
-  /* outline: 1px solid red; */
 }
 .lightBoxImage > img {
   width: 100%;
   height: 100%;
-  transition: 5.6s ease;
   box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.8);
-  /* outline: 1px solid blue; */
 }
 .x {
   font-size: 3em;
