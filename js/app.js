@@ -295,12 +295,19 @@ const controller = {
     // add image to lightbox
     lightBoxView.changeImg(model.currentImgSrc);
     //add event listener to previous and next buttons
-    document
-      .getElementsByClassName("previous")[0]
-      .addEventListener("click", navigation.prev);
-    document
-      .getElementsByClassName("next")[0]
-      .addEventListener("click", navigation.next);
+    if (model.imgArrayShown.length < 2) {
+      document.getElementsByClassName("previous")[0].style.display = "none";
+      document.getElementsByClassName("next")[0].style.display = "none";
+    } else {
+      document.getElementsByClassName("previous")[0].style.display = "";
+      document.getElementsByClassName("next")[0].style.display = "";
+      document
+        .getElementsByClassName("previous")[0]
+        .addEventListener("click", navigation.prev);
+      document
+        .getElementsByClassName("next")[0]
+        .addEventListener("click", navigation.next);
+    }
   },
 
   listenThumbnails() {
