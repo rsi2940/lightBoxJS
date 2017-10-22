@@ -2,6 +2,11 @@
 
 // model
 const model = {
+  declaration() {
+    this.imgArrayShown = [];
+    this.imgArrayHidden = [];
+  },
+
   imgObj: [
     (img01 = {
       imgSrcTh: "photos/thumbnails/01.jpg",
@@ -146,6 +151,9 @@ const lightBoxView = {
 
   changeImg(changeSrc) {
     document.getElementsByClassName("lbImage")[0].src = changeSrc;
+  },
+  lightBoxX() {
+    this.hideLB = document.getElementsByClassName("x");
   }
 };
 
@@ -154,6 +162,7 @@ const controller = {
   filter() {
     // Declare variables for filter purpose
     //console.log("infilter");
+
     const input = searchBox.searchBox;
     const filter = input.value.toUpperCase();
     const images = model.imgObj;
@@ -164,44 +173,37 @@ const controller = {
 
     //console.log(img[0].dataset.caption);
     countInvisible = 0;
-    imgArrayShown = [];
-    imgArrayHidden = [];
-
+    //console.log(model.imgArrayHidden[0]);
+    //reset model array data
+    model.declaration();
     // Loop to hide non-matching photo & caption
     for (let i = 0; i < images.length; i++) {
       const caption = images[i].imgCaption;
       if (caption.toUpperCase().indexOf(filter) > -1) {
-        imgArrayShown.push(images[i]);
+        model.imgArrayShown.push(images[i]);
 
         // console.log(images[i]);
       } else {
-        // img[i].parentNode.style.display = "none";
-        // img[i].style.display = "none";
-        // img[i].nextElementSibling.style.display = "none";
-        // countInvisible++;
-        // imgArrayHidden.push(img[i].dataset.src);
-        // countVisible = imgSrc.length - countInvisible;
-        // console.log("in hide " + imgArrayHidden.length);
-        //console.log("else " + caption);
-        imgArrayHidden.push(images[i]);
+        model.imgArrayHidden.push(images[i]);
       }
     }
     // console.log(imgArrayHidden);
-    // console.log(imgArrayShown);
+    console.log(model.imgArrayShown);
     thumbnailsView.clearThumbnails();
-    for (i = 0; i < imgArrayShown.length; i++) {
+    for (i = 0; i < model.imgArrayShown.length; i++) {
       thumbnailsView.addThumbnails(
-        imgArrayShown[i].imgSrcTh,
-        imgArrayShown[i].imgAlt,
-        imgArrayShown[i].imgTitle,
-        imgArrayShown[i].imgCaption,
-        imgArrayShown[i].imgSrc
+        model.imgArrayShown[i].imgSrcTh,
+        model.imgArrayShown[i].imgAlt,
+        model.imgArrayShown[i].imgTitle,
+        model.imgArrayShown[i].imgCaption,
+        model.imgArrayShown[i].imgSrc
       );
     }
   },
 
   init() {
     searchBox.init();
+    model.declaration();
     model.imgObj.forEach(function(obj) {
       thumbnailsView.addThumbnails(
         obj.imgSrcTh,
@@ -214,14 +216,24 @@ const controller = {
 
     //filter function
 
-    //add event listener to each thumbnails
-
+    //add event listener to input
     searchBox.searchBox.addEventListener("keyup", controller.filter);
+  },
+
+  hideLightBox() {
+    document.getElementById("lightBox").style.display = "none";
   },
 
   lightBox(obj) {
     const lightBox = document.getElementById("lightBox");
     lightBox.style.display = "flex";
+
+    //add event listener to lightbox X to hide lightbox
+    document
+      .getElementsByClassName("x")[0]
+      .addEventListener("click", controller.hideLightBox);
+
+    //set image source
     currentImgSrc = obj.target.dataset.src;
 
     //add caption to lightbox

@@ -71,6 +71,15 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+#caption {
+  padding: 0.25em;
+  align-self: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 80%;
+}
+
 #search {
   position: fixed;
   height: 3em;
