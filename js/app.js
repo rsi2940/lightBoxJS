@@ -110,12 +110,12 @@ const searchBox = {
 };
 const thumbnailsView = {
   clearThumbnails() {
-    console.log("clearing...");
+    //console.log("clearing...");
     const parent = document.getElementById("thumbnails");
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
-    console.log("cleared!!");
+    //console.log("cleared!!");
   },
 
   addThumbnails(src, alt, title, caption, lbSrc) {
@@ -153,11 +153,11 @@ const lightBoxView = {
 const controller = {
   filter() {
     // Declare variables for filter purpose
-    console.log("infilter");
+    //console.log("infilter");
     const input = searchBox.searchBox;
     const filter = input.value.toUpperCase();
     const images = model.imgObj;
-    console.log(filter);
+    // console.log(filter);
 
     // set filter flag true
     filterFlag = true;
@@ -186,8 +186,8 @@ const controller = {
         imgArrayHidden.push(images[i]);
       }
     }
-    console.log(imgArrayHidden);
-    console.log(imgArrayShown);
+    // console.log(imgArrayHidden);
+    // console.log(imgArrayShown);
     thumbnailsView.clearThumbnails();
     for (i = 0; i < imgArrayShown.length; i++) {
       thumbnailsView.addThumbnails(
@@ -220,10 +220,6 @@ const controller = {
   },
 
   lightBox(obj) {
-    console.log(obj);
-    console.log(obj.target.src);
-    console.log(obj.target.dataset.caption);
-
     const lightBox = document.getElementById("lightBox");
     lightBox.style.display = "flex";
     currentImgSrc = obj.target.dataset.src;
@@ -242,11 +238,10 @@ const controller = {
   },
 
   listenThumbnails() {
-    //console.log(thumbnailsView.thumbnails.getElementsByClassName("images"));
     const images = thumbnailsView.thumbnails.getElementsByClassName("images");
 
     for (let i = 0; i < images.length; i++) {
-      images[i].addEventListener("click", controller.lightBox);
+      images[i].firstChild.addEventListener("click", controller.lightBox);
       // console.log(images[i]);
     }
   }
