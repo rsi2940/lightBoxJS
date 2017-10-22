@@ -7,6 +7,11 @@ const model = {
     this.imgArrayHidden = [];
   },
 
+  lightBoxVariable() {
+    this.currentImgSrc = "";
+    this.caption = "";
+  },
+
   imgObj: [
     (img01 = {
       imgSrcTh: "photos/thumbnails/01.jpg",
@@ -157,8 +162,61 @@ const lightBoxView = {
   }
 };
 
+const navigation = {
+  prev() {
+    // console.log(model.imgArrayShown[0].imgSrc);
+    // console.log(model.currentImgSrc);
+    for (let i = 0; i < model.imgArrayShown.length; i++) {
+      if (model.currentImgSrc.indexOf(model.imgArrayShown[i].imgSrc) > -1) {
+        if (i === 0) {
+          model.currentImgSrc =
+            model.imgArrayShown[model.imgArrayShown.length - 1].imgSrc;
+          lightBoxView.changeImg(model.currentImgSrc);
+          // console.log(
+          //   model.imgArrayShown[model.imgArrayShown.length - 1].imgSrc
+          // );
+          model.caption =
+            model.imgArrayShown[model.imgArrayShown.length - 1].imgCaption;
+          lightBoxView.lightBoxCaption(model.caption);
+
+          break;
+        }
+
+        //console.log(model.imgArrayShown[i - 1].imgSrc);
+        model.currentImgSrc = model.imgArrayShown[i - 1].imgSrc;
+        lightBoxView.changeImg(model.currentImgSrc);
+
+        model.caption = model.imgArrayShown[i - 1].imgCaption;
+        lightBoxView.lightBoxCaption(model.caption);
+        break;
+      }
+    }
+  },
+  next() {
+    for (let i = 0; i < model.imgArrayShown.length; i++) {
+      if (model.currentImgSrc.indexOf(model.imgArrayShown[i].imgSrc) > -1) {
+        if (i === model.imgArrayShown.length - 1) {
+          model.currentImgSrc = model.imgArrayShown[0].imgSrc;
+          lightBoxView.changeImg(model.currentImgSrc);
+          model.caption = model.imgArrayShown[0].imgCaption;
+          lightBoxView.lightBoxCaption(model.caption);
+
+          break;
+        }
+        model.currentImgSrc = model.imgArrayShown[i + 1].imgSrc;
+        lightBoxView.changeImg(model.currentImgSrc);
+        model.caption = model.imgArrayShown[i + 1].imgCaption;
+        lightBoxView.lightBoxCaption(model.caption);
+
+        break;
+      }
+    }
+  }
+};
+
 //controller
 const controller = {
+  //filter function
   filter() {
     // Declare variables for filter purpose
     //console.log("infilter");
@@ -168,11 +226,8 @@ const controller = {
     const images = model.imgObj;
     // console.log(filter);
 
-    // set filter flag true
-    filterFlag = true;
-
     //console.log(img[0].dataset.caption);
-    countInvisible = 0;
+
     //console.log(model.imgArrayHidden[0]);
     //reset model array data
     model.declaration();
@@ -205,6 +260,7 @@ const controller = {
     searchBox.init();
     model.declaration();
     model.imgObj.forEach(function(obj) {
+      model.imgArrayShown.push(obj);
       thumbnailsView.addThumbnails(
         obj.imgSrcTh,
         obj.imgAlt,
@@ -213,8 +269,6 @@ const controller = {
         obj.imgSrc
       );
     }, this);
-
-    //filter function
 
     //add event listener to input
     searchBox.searchBox.addEventListener("keyup", controller.filter);
@@ -234,19 +288,19 @@ const controller = {
       .addEventListener("click", controller.hideLightBox);
 
     //set image source
-    currentImgSrc = obj.target.dataset.src;
+    model.currentImgSrc = obj.target.dataset.src;
 
     //add caption to lightbox
     lightBoxView.lightBoxCaption(obj.target.dataset.caption);
     // add image to lightbox
-    lightBoxView.changeImg(currentImgSrc);
+    lightBoxView.changeImg(model.currentImgSrc);
     //add event listener to previous and next buttons
-    //remove   // document
-    //         //     .getElementsByClassName("previous")[0]
-    //this     //     .addEventListener("click", prev);
-    //         // document
-    //later    //     .getElementsByClassName("next")[0]
-    //         //     .addEventListener("click", next);
+    document
+      .getElementsByClassName("previous")[0]
+      .addEventListener("click", navigation.prev);
+    document
+      .getElementsByClassName("next")[0]
+      .addEventListener("click", navigation.next);
   },
 
   listenThumbnails() {
