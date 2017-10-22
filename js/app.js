@@ -303,6 +303,9 @@ const controller = {
       if (e.keyCode === 37) {
         navigation.prev();
       }
+      if (e.keyCode === 27) {
+        controller.hideLightBox();
+      }
     });
   },
 
@@ -327,8 +330,8 @@ const controller = {
       controller.hideNextPrev();
     } else {
       controller.showNextPrev();
-      controller.addClickListener();
       controller.addKeyboardArrowListener();
+      controller.addClickListener();
     }
   },
 
