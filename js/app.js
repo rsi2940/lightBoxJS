@@ -278,6 +278,34 @@ const controller = {
     document.getElementById("lightBox").style.display = "none";
   },
 
+  showNextPrev() {
+    document.getElementsByClassName("previous")[0].style.display = "";
+    document.getElementsByClassName("next")[0].style.display = "";
+  },
+  hideNextPrev() {
+    document.getElementsByClassName("previous")[0].style.display = "none";
+    document.getElementsByClassName("next")[0].style.display = "none";
+  },
+  addClickListener() {
+    document
+      .getElementsByClassName("previous")[0]
+      .addEventListener("click", navigation.prev);
+    document
+      .getElementsByClassName("next")[0]
+      .addEventListener("click", navigation.next);
+  },
+  addKeyboardArrowListener() {
+    document.addEventListener("keydown", e => {
+      console.log(e.keyCode);
+      if (e.keyCode === 39) {
+        navigation.next();
+      }
+      if (e.keyCode === 37) {
+        navigation.prev();
+      }
+    });
+  },
+
   lightBox(obj) {
     const lightBox = document.getElementById("lightBox");
     lightBox.style.display = "flex";
@@ -296,17 +324,11 @@ const controller = {
     lightBoxView.changeImg(model.currentImgSrc);
     //add event listener to previous and next buttons
     if (model.imgArrayShown.length < 2) {
-      document.getElementsByClassName("previous")[0].style.display = "none";
-      document.getElementsByClassName("next")[0].style.display = "none";
+      controller.hideNextPrev();
     } else {
-      document.getElementsByClassName("previous")[0].style.display = "";
-      document.getElementsByClassName("next")[0].style.display = "";
-      document
-        .getElementsByClassName("previous")[0]
-        .addEventListener("click", navigation.prev);
-      document
-        .getElementsByClassName("next")[0]
-        .addEventListener("click", navigation.next);
+      controller.showNextPrev();
+      controller.addClickListener();
+      controller.addKeyboardArrowListener();
     }
   },
 
