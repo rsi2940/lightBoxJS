@@ -243,7 +243,7 @@ const controller = {
       }
     }
     // console.log(imgArrayHidden);
-    console.log(model.imgArrayShown);
+    //console.log(model.imgArrayShown);
     thumbnailsView.clearThumbnails();
     for (i = 0; i < model.imgArrayShown.length; i++) {
       thumbnailsView.addThumbnails(
