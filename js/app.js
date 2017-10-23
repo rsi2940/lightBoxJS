@@ -280,18 +280,26 @@ const controller = {
       .addEventListener("click", navigation.next);
   },
   //add keyboard listener to arrow and escape function
-  addKeyboardArrowListener() {
-    document.addEventListener("keydown", e => {
-      if (e.keyCode === 39) {
-        navigation.next();
-      }
-      if (e.keyCode === 37) {
-        navigation.prev();
-      }
-      if (e.keyCode === 27) {
-        controller.hideLightBox();
-      }
-    });
+  addKeyboardArrowListener(flag) {
+    if (flag === 2) {
+      document.addEventListener("keydown", e => {
+        if (e.keyCode === 39) {
+          navigation.next();
+        }
+        if (e.keyCode === 37) {
+          navigation.prev();
+        }
+        if (e.keyCode === 27) {
+          controller.hideLightBox();
+        }
+      });
+    } else {
+      document.addEventListener("keydown", e => {
+        if (e.keyCode === 27) {
+          controller.hideLightBox();
+        }
+      });
+    }
   },
   //lightBox to display photo and caption and add event listeners
   lightBox(obj) {
@@ -313,9 +321,10 @@ const controller = {
     //add event listener to previous and next buttons
     if (model.imgArrayShown.length < 2) {
       controller.hideNextPrev();
+      controller.addKeyboardArrowListener(1);
     } else {
       controller.showNextPrev();
-      controller.addKeyboardArrowListener();
+      controller.addKeyboardArrowListener(2);
       controller.addClickListener();
     }
   },
