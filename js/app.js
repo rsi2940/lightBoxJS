@@ -8,6 +8,8 @@ const model = {
 
   lightBoxVariable() {
     this.currentImgSrc = "";
+    this.currentImgSrcTh = "";
+    this.currentImgAlt = "";
     this.caption = "";
   },
 
@@ -146,12 +148,26 @@ const thumbnailsView = {
 };
 
 const lightBoxView = {
-  lightBoxCaption(value) {
-    document.getElementById("caption").innerText = value.toUpperCase();
+  lightBoxCaption() {
+    document.getElementById("caption").innerText = model.caption.toUpperCase();
   },
 
-  changeImg(changeSrc) {
-    document.getElementsByClassName("lbImage")[0].src = changeSrc;
+  changeImg() {
+    this.pictureEl = document.getElementById("lightBoxPicture");
+    this.sourceEl = document.createElement("source");
+    while (this.pictureEl.firstChild) {
+      this.pictureEl.removeChild(this.pictureEl.firstChild);
+    }
+    this.sourceEl.srcset = model.currentImgSrcTh;
+    this.sourceEl.media = "max-width: 37em";
+    this.imgEl = document.createElement("img");
+    this.imgEl.className = "lbImage";
+
+    this.imgEl.src = model.currentImgSrc;
+    this.imgEl.alt = model.currentImgAlt;
+    this.pictureEl.appendChild(this.sourceEl);
+    this.pictureEl.appendChild(this.imgEl);
+    // document.getElementsByClassName("lbImage")[0].src = changeSrc;
   },
   lightBoxX() {
     this.hideLB = document.getElementsByClassName("x");
@@ -167,20 +183,26 @@ const navigation = {
         if (i === 0) {
           model.currentImgSrc =
             model.imgArrayShown[model.imgArrayShown.length - 1].imgSrc;
-          lightBoxView.changeImg(model.currentImgSrc);
+          model.currentImgSrcTh =
+            model.imgArrayShown[model.imgArrayShown.length - 1].imgSrcTh;
+          model.currentImgAlt =
+            model.imgArrayShown[model.imgArrayShown.length - 1].imgAlt;
+          lightBoxView.changeImg();
 
           model.caption =
             model.imgArrayShown[model.imgArrayShown.length - 1].imgCaption;
-          lightBoxView.lightBoxCaption(model.caption);
+          lightBoxView.lightBoxCaption();
 
           break;
         }
 
         model.currentImgSrc = model.imgArrayShown[i - 1].imgSrc;
-        lightBoxView.changeImg(model.currentImgSrc);
+        model.currentImgSrcTh = model.imgArrayShown[i - 1].imgSrcTh;
+        model.currentImgAlt = model.imgArrayShown[i - 1].imgAlt;
+        lightBoxView.changeImg();
 
         model.caption = model.imgArrayShown[i - 1].imgCaption;
-        lightBoxView.lightBoxCaption(model.caption);
+        lightBoxView.lightBoxCaption();
         break;
       }
     }
@@ -190,17 +212,20 @@ const navigation = {
       if (model.currentImgSrc.indexOf(model.imgArrayShown[i].imgSrc) > -1) {
         if (i === model.imgArrayShown.length - 1) {
           model.currentImgSrc = model.imgArrayShown[0].imgSrc;
-          lightBoxView.changeImg(model.currentImgSrc);
+          model.currentImgSrcTh = model.imgArrayShown[0].imgSrcTh;
+          model.currentImgAlt = model.imgArrayShown[0].imgAlt;
+          lightBoxView.changeImg();
           model.caption = model.imgArrayShown[0].imgCaption;
-          lightBoxView.lightBoxCaption(model.caption);
+          lightBoxView.lightBoxCaption();
 
           break;
         }
         model.currentImgSrc = model.imgArrayShown[i + 1].imgSrc;
-        lightBoxView.changeImg(model.currentImgSrc);
+        model.currentImgSrcTh = model.imgArrayShown[i + 1].imgSrcTh;
+        model.currentImgAlt = model.imgArrayShown[i + 1].imgAlt;
+        lightBoxView.changeImg();
         model.caption = model.imgArrayShown[i + 1].imgCaption;
-        lightBoxView.lightBoxCaption(model.caption);
-
+        lightBoxView.lightBoxCaption();
         break;
       }
     }
@@ -313,11 +338,14 @@ const controller = {
 
     //set image source
     model.currentImgSrc = obj.target.dataset.src;
+    model.currentImgSrcTh = obj.target.src;
+    model.currentImgAlt = obj.target.alt;
+    model.caption = obj.target.dataset.caption;
 
-    //add caption to lightbox
-    lightBoxView.lightBoxCaption(obj.target.dataset.caption);
     // add image to lightbox
-    lightBoxView.changeImg(model.currentImgSrc);
+    lightBoxView.changeImg();
+    //add caption to lightbox
+    lightBoxView.lightBoxCaption();
     //add event listener to previous and next buttons
     if (model.imgArrayShown.length < 2) {
       controller.hideNextPrev();

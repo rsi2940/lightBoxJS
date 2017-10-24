@@ -27,7 +27,7 @@ body {
   justify-content: space-around;
   padding-top: 3em;
 }
-.lightBoxImage > img {
+.lightBoxImage img {
   width: 100%;
   height: 100%;
   box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.8);
