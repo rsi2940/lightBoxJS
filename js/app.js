@@ -149,7 +149,11 @@ const thumbnailsView = {
 
 const lightBoxView = {
   lightBoxCaption() {
-    document.getElementById("caption").innerText = model.caption.toUpperCase();
+    //document.getElementById("caption").innerText = model.caption.toUpperCase();
+    this.captionEl = document.createElement("div");
+    this.captionEl.className = "lbCaption";
+    this.captionEl.innerText = model.caption.toUpperCase();
+    this.pictureEl.appendChild(this.captionEl);
   },
 
   changeImg() {
