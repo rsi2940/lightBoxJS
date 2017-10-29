@@ -153,7 +153,16 @@ const lightBoxView = {
     this.captionEl = document.createElement("div");
     this.captionEl.className = "lbCaption";
     this.captionEl.innerText = model.caption.toUpperCase();
-    this.pictureEl.appendChild(this.captionEl);
+    this.captionElParent = document.getElementById("lbImageId");
+    this.childrens = this.captionElParent.childNodes;
+
+    this.childrens.forEach(function(child) {
+      if (child.className === "lbCaption") {
+        this.captionElParent.removeChild(child);
+      }
+    }, this);
+
+    this.captionElParent.appendChild(this.captionEl);
   },
 
   changeImg() {
@@ -163,7 +172,7 @@ const lightBoxView = {
       this.pictureEl.removeChild(this.pictureEl.firstChild);
     }
     this.sourceEl.srcset = model.currentImgSrcTh;
-    this.sourceEl.media = "max-width: 37em";
+    this.sourceEl.media = "(max-width:37em)";
     this.imgEl = document.createElement("img");
     this.imgEl.className = "lbImage";
 
@@ -284,6 +293,14 @@ const controller = {
 
     //add event listener to input
     searchBox.searchBox.addEventListener("keyup", controller.filter);
+
+    //add event listener to previous and next buttons
+    controller.hideNextPrev();
+    controller.showNextPrev();
+    //add keyboard forward and back key listener plus esc key to exit lightbox
+    controller.addKeyboardArrowListener();
+    //add click listener to next and prev arrows
+    controller.addClickListener();
   },
   //hide lightbox
   hideLightBox() {
@@ -309,27 +326,20 @@ const controller = {
       .addEventListener("click", navigation.next);
   },
   //add keyboard listener to arrow and escape function
-  addKeyboardArrowListener(flag) {
-    if (flag === 2) {
-      document.addEventListener("keydown", e => {
-        if (e.keyCode === 39) {
-          navigation.next();
-        }
-        if (e.keyCode === 37) {
-          navigation.prev();
-        }
-        if (e.keyCode === 27) {
-          controller.hideLightBox();
-        }
-      });
-    } else {
-      document.addEventListener("keydown", e => {
-        if (e.keyCode === 27) {
-          controller.hideLightBox();
-        }
-      });
-    }
+  addKeyboardArrowListener() {
+    document.addEventListener("keydown", e => {
+      if (e.keyCode === 39) {
+        navigation.next();
+      }
+      if (e.keyCode === 37) {
+        navigation.prev();
+      }
+      if (e.keyCode === 27) {
+        controller.hideLightBox();
+      }
+    });
   },
+
   //lightBox to display photo and caption and add event listeners
   lightBox(obj) {
     const lightBox = document.getElementById("lightBox");
@@ -346,6 +356,8 @@ const controller = {
     model.currentImgAlt = obj.target.alt;
     model.caption = obj.target.dataset.caption;
 
+    //show Next prev
+    controller.showNextPrev();
     // add image to lightbox
     lightBoxView.changeImg();
     //add caption to lightbox
@@ -353,11 +365,6 @@ const controller = {
     //add event listener to previous and next buttons
     if (model.imgArrayShown.length < 2) {
       controller.hideNextPrev();
-      controller.addKeyboardArrowListener(1);
-    } else {
-      controller.showNextPrev();
-      controller.addKeyboardArrowListener(2);
-      controller.addClickListener();
     }
   },
   //add event listeners to each images displayed
