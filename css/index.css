@@ -17,6 +17,7 @@ body {
   z-index: 1;
   flex-direction: column;
 }
+
 .lightBoxImage {
   width: 80%;
   height: 80%;
@@ -25,7 +26,6 @@ body {
   flex-direction: column;
   align-items: center;
   padding-top: 3em;
-  transition: all ease 1s;
 }
 #lightBoxPicture {
   width: 80%;
@@ -43,23 +43,25 @@ body {
   right: 0;
   color: #fff;
 }
-
+.next,
 .previous {
   font-size: 2em;
   position: absolute;
-  top: 45%;
-  left: 18vw;
   color: #fff;
   text-shadow: 4px 4px 4px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.previous {
+  top: 45%;
+  left: 18vw;
 }
 
 .next {
-  font-size: 2em;
-  position: absolute;
   top: 45%;
   right: 18vw;
-  color: #fff;
-  text-shadow: 4px 4px 4px black;
 }
 
 .x:hover,
@@ -77,6 +79,7 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   width: 80%;
   box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.8);
+  /* transition: width 0.5s; */
 }
 
 #search {
@@ -104,6 +107,7 @@ body {
 }
 #thumbnails img {
   box-shadow: 4px 4px 4px gray;
+  transition: all ease 1s;
 }
 #thumbnails img:hover {
   cursor: pointer;
@@ -169,9 +173,35 @@ footer {
     padding: 0.25em;
   }
 }
-@media (max-width: 30em) {
+@media (max-width: 37em) and (pointer: coarse) {
   .next,
   .previous {
-    top: 30%;
+    width: 20%;
+    top: 48px;
+    height: 80vh;
+    font-size: 0;
+    /* background-color: rgba(0, 0, 0, 0.5); */
   }
+  .next {
+    text-align: right;
+  }
+  .previous {
+    text-align: left;
+  }
+}
+@media (max-width: 30em) {
+  /* .next,
+  .previous {
+    width: 20%;
+    top: 48px;
+    height: 50vh;
+    font-size: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+  }
+  .next {
+    text-align: right;
+  }
+  .previous {
+    text-align: left;
+  } */
 }
