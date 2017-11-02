@@ -65,8 +65,8 @@ body {
 }
 
 .x:hover,
-.previous:hover,
-.next:hover {
+.previous-hov:hover,
+.next-hov:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -173,7 +173,7 @@ footer {
     padding: 0.25em;
   }
 }
-@media (max-width: 37em) and (pointer: coarse) {
+@media (max-width: 37em) and (pointer: fine) {
   .next,
   .previous {
     width: 40%;
@@ -190,9 +190,10 @@ footer {
     left: 0;
     text-align: left;
   }
-  .previous:hover,
-  .next:hover {
-    background-color: none;
+  .x:hover,
+  .previous-hov:hover,
+  .next-hov:hover {
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 @media (max-width: 30em) {

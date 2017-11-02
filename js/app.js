@@ -301,6 +301,17 @@ const controller = {
     controller.addKeyboardArrowListener();
     //add click listener to next and prev arrows
     controller.addClickListener();
+
+    // document.addEventListener("pointerdown", ev => {
+    //   console.log(ev.pointerType);
+    //   if (ev.pointerType !== "touch") {
+    //     controller.previous.classList.add("previous-hov");
+    //     controller.next.classList.add("next-hov");
+    //   } else {
+    //     controller.previous.classList.remove("previous-hov");
+    //     controller.next.classList.remove("next-hov");
+    //   }
+    // });
   },
   //hide lightbox
   hideLightBox() {
@@ -308,9 +319,12 @@ const controller = {
   },
   //show next and prev labels
   showNextPrev() {
-    document.getElementsByClassName("previous")[0].style.display = "";
-    document.getElementsByClassName("next")[0].style.display = "";
+    this.previous = document.getElementsByClassName("previous")[0];
+    this.previous.style.display = "";
+    this.next = document.getElementsByClassName("next")[0];
+    this.next.style.display = "";
   },
+
   //hide next and prev labels
   hideNextPrev() {
     document.getElementsByClassName("previous")[0].style.display = "none";
@@ -375,5 +389,4 @@ const controller = {
     }
   }
 };
-
 controller.init();
