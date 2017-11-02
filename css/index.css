@@ -173,7 +173,7 @@ footer {
     padding: 0.25em;
   }
 }
-@media (max-width: 37em) and (pointer: fine) {
+@media (max-width: 37em) {
   .next,
   .previous {
     width: 40%;
