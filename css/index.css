@@ -65,8 +65,8 @@ body {
 }
 
 .x:hover,
-.previous-hov:hover,
-.next-hov:hover {
+.previous:hover,
+.next:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -191,8 +191,8 @@ footer {
     text-align: left;
   }
   .x:hover,
-  .previous-hov:hover,
-  .next-hov:hover {
+  .previous:hover,
+  .next:hover {
     background-color: rgba(0, 0, 0, 0);
   }
 }
