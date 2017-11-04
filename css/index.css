@@ -167,15 +167,26 @@ footer {
   }
 }
 @media (max-width: 48em) {
+  .lightBoxImage {
+    margin: 0 auto;
+    width: 100%;
+    /* height: 80vh; */
+  }
   .images {
     flex-basis: 40%;
   }
   .next,
   .previous {
-    top: 40vh;
+    top: 50vh;
+  }
+  .next {
+    right: 10vw;
+  }
+  .previous {
+    left: 10vw;
   }
   #lightBoxPicture {
-    height: auto;
+    height: 80vh;
   }
 }
 
@@ -185,7 +196,19 @@ footer {
     width: 200px;
     height: 200px;
   }
-
+  #lightBoxPicture {
+    height: auto;
+  }
+  .next {
+    right: 19vw;
+  }
+  .previous {
+    left: 19vw;
+  }
+  .next,
+  .previous {
+    top: 20vh;
+  }
   #thumbnails img {
     width: 150px;
   }
