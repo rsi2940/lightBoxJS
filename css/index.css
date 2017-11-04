@@ -181,10 +181,10 @@ footer {
     top: 50vh;
   }
   .next {
-    right: 10vw;
+    right: 12vw;
   }
   .previous {
-    left: 10vw;
+    left: 12vw;
   }
   #lightBoxPicture {
     height: 80vh;
@@ -201,10 +201,10 @@ footer {
     height: auto;
   }
   .next {
-    right: 19vw;
+    right: 15vw;
   }
   .previous {
-    left: 19vw;
+    left: 15vw;
   }
   .next,
   .previous {
