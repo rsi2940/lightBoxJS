@@ -175,11 +175,14 @@ const lightBoxView = {
     this.sourceEl.media = "(max-width:37em)";
     this.imgEl = document.createElement("img");
     this.imgEl.className = "lbImage";
-
+    setTimeout("document.querySelector('.lbImage').classList.add('animate')");
+    this.imgEl.src = model.currentImgSrc;
     this.imgEl.src = model.currentImgSrc;
     this.imgEl.alt = model.currentImgAlt;
     this.pictureEl.appendChild(this.sourceEl);
     this.pictureEl.appendChild(this.imgEl);
+
+    //
     // document.getElementsByClassName("lbImage")[0].src = changeSrc;
   },
   lightBoxX() {
@@ -189,8 +192,6 @@ const lightBoxView = {
 
 const navigation = {
   prev() {
-    // console.log(model.imgArrayShown[0].imgSrc);
-    // console.log(model.currentImgSrc);
     for (let i = 0; i < model.imgArrayShown.length; i++) {
       if (model.currentImgSrc.indexOf(model.imgArrayShown[i].imgSrc) > -1) {
         if (i === 0) {
@@ -239,6 +240,7 @@ const navigation = {
         lightBoxView.changeImg();
         model.caption = model.imgArrayShown[i + 1].imgCaption;
         lightBoxView.lightBoxCaption();
+
         break;
       }
     }
