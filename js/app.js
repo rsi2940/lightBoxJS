@@ -317,7 +317,9 @@ const controller = {
   },
   //hide lightbox
   hideLightBox() {
-    document.getElementById("lightBox").style.display = "none";
+    this.lightBoxEl = document.getElementById("lightBox");
+    this.lightBoxEl.style.display = "none";
+    document.querySelector("body").classList.remove("body-overflow");
   },
   //show next and prev labels
   showNextPrev() {
@@ -358,9 +360,10 @@ const controller = {
 
   //lightBox to display photo and caption and add event listeners
   lightBox(obj) {
-    const lightBox = document.getElementById("lightBox");
-    lightBox.style.display = "flex";
+    this.lightBox = document.getElementById("lightBox");
+    this.lightBox.style.display = "flex";
 
+    document.querySelector("body").classList.add("body-overflow");
     //add event listener to lightbox X to hide lightbox
     document
       .getElementsByClassName("x")[0]
